@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 
+int membership(int);
 void customer(char c_name[], char items[],int cost[], int stock[] ) {
     int bal,ch,i=0,bill = 0;
     char b;
@@ -10,7 +11,7 @@ void customer(char c_name[], char items[],int cost[], int stock[] ) {
     do {
         printf("\n1. View the Items in our Store \n2. Shop Items in our Store \n3. View your Balance in your e-Wallet");
         printf("\nEnter what you want to do: ");
-        scanf("%d",&ch);
+        scanf(" %c",&ch);
         if (ch==1) {
             while (i<2) {
                 printf("\n %d. %s = %d",i+1,items[i],cost[i]);
@@ -103,17 +104,91 @@ void customer(char c_name[], char items[],int cost[], int stock[] ) {
     
 }
 
+
+void employee(char name[], char items[][30], int cost[], int stock[])
+{
+    printf("\n=============EMPLOYEE=============\n");
+    int passcode;
+
+    // printf("%s\n", name);
+    // for(i = 0; i<10; i++) {printf("%s ",items[i]);}
+    // printf("\n");
+    // for(i = 0; i < 10; i++){printf("%d ", stock[i]);}
+    // printf("\n");
+    // for(i = 0; i < 10; i++){printf("%d ", cost[i]);}
+
+    printf("Enter the employee passcode: ");
+    scanf("%i", &passcode);
+    if(passcode != 1234 ){printf("\nIncorrect Passcode!");return;}
+    
+    int choice;
+    char ch='y';
+
+    printf("Welcome %s to the employee menu, ", name);
+    do{
+            printf("what would you like to do?\n(1)Update stock\n(2)Update cost\n(3)View Items\n>> ");
+            scanf("%d", &choice);
+
+            char returnCheck = 'y';
+            int itemID,i;
+
+            switch(choice)
+            {
+                case 1: printf("Update stock\n");
+                        do{
+                            printf("Which stock item would you like to change(-1 to exit)\n>>Enter Item ID: ");scanf("%d",&itemID);
+                                if(itemID == -1 ){break;}  // -1 TO EXIT OUT OF THE LOOP
+                                if(itemID > 10 ){continue;}
+                                
+                                    printf("\nSeletect Item; %s \nAvailable Stock; %d",items[ itemID ],stock[ itemID ]);
+                                    printf("\nWhat is the new stock amount for this item? ");scanf("%i",&stock[itemID]);
+                                    printf("\nSTOCK HAS BEEN UPDATED \nItem; %s \nNew Stock; %d",items[ itemID ],stock[ itemID ]);
+
+                            printf("\nDo you wish to update stock for anything else?(y/n) ");scanf(" %c",&returnCheck);printf("\n");
+                        }while(returnCheck == 'Y' || returnCheck == 'y');
+                        break;
+                
+                case 2: printf("Update cost\n");
+                        do{
+                            printf("Which stock item would you like to change(-1 to exit)\n>>Enter Item ID: ");scanf("%d",&itemID);
+                                if(itemID == -1 ){break;}
+                                if(itemID > 10 ){continue;}
+                                
+                                    printf("\nSeletect Item; %s \nCurrent Price; %d",items[ itemID ],cost[ itemID ]);
+                                    printf("\nWhat is the new price for this item? ");scanf("%i",&cost[itemID]);
+                                    printf("\nCOST HAS BEEN UPDATED \nItem; %s \nNew Price; %d",items[ itemID ],cost[ itemID ]);
+
+                            printf("\nDo you wish to update stock for anything else?(y/n) ");scanf(" %c",&returnCheck);printf("\n");
+                        }while(returnCheck == 'Y' || returnCheck == 'y');
+                        break;
+
+               /* case 3: printf("View Items\n");
+                        printf("\nID\tItems\t\t Stock\t\t Cost");
+                        for( int i = 0 ; i < 10 ; i++ ) {printf("\n%d.\t%s\t\t %d\t\t %d",i,items[i],stock[i],cost[i]);}
+                        break; */
+                default:printf("wrong choice\n");break;
+            }
+
+        printf("\nDo you want to go back to employee menu?(y/n) ");scanf(" %c",&ch);printf("\n");
+    }while(ch == 'Y' || ch == 'y');
+
+}
+
+
+
+
+
 int main()
 {
 	char items[10]={'Apples','Chips','Pepsi','Chocolate','Boost','Nutella','Toothpaste','Surf Excel','Biscuits','Ketchup'};
 	char whilemain='y';
-	char cust_name[20];
+	char user_name[20];
 	int cost[10]={'50','20','25','10','60','100','20','70','15','10',},stock[10]={'50','50','50','50','50','50','50','50','50','50',};
 	
 	while(whilemain=='y'||whilemain=='Y')
 	    {
 	    	printf("Enter your name");
-	        gets(cust_name);
+	        gets(user_name);
 	        
 	        int loop1=0;
 	        
@@ -125,12 +200,12 @@ int main()
 	        	
 	        	if(choice=='c'||choice=='C')
 	        	{
-	        		customer(cust_name,items,cost,stock);
+	        		customer(user_name,items,cost,stock);
 					loop1=1;
 				}
 				else if(choice=='e'||choice=='E')
 				{
-					
+					employee(user_name,items,cost,stock);
 					loop1=1;
 				}
 				else
@@ -144,5 +219,35 @@ int main()
 		}
 		
 	printf("Thank you for Shopping with us?");
+	return 0;
 	    
+}
+
+int membership(int bill_amount)
+{
+    if(bill_amount>3000)
+    {
+        printf("dear customer, you will come under PLATINUM membership");
+        bill_amount-=bill_amount*(0.25);
+    }
+    else if(bill_amount>2000)
+    {
+        printf("dear customer, you will come under GOLD membership");
+        bill_amount-=bill_amount*(0.15);
+    }
+    else if(bill_amount>1000)
+    {
+        printf("dear customer, you will come under SILVER membership");
+        bill_amount-=bill_amount*(0.05);
+    }
+    else if(bill_amount>500)
+    {
+        printf("dear customer, you will come under BRONZE membership");
+        bill_amount-=bill_amount*(0.025);
+    }
+    else
+    {
+        printf("dear customer, You will not come under any membership scheme");
+    }
+    return bill_amount;
 }

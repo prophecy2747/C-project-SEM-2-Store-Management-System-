@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 
-void employee(char name[], char items[][30], int stock[], int cost[])
+void employee(char name[], char items[][30], int cost[], int stock[])
 {
     printf("\n=============EMPLOYEE=============\n");
     int passcode;
@@ -77,7 +77,7 @@ void employee(char name[], char items[][30], int stock[], int cost[])
 
 int main()
 {
-	char items[][30]={"Apples","Chips","Pepsi","Chocolate","Boost","Nutella","Toothpaste","Surf Excel","Biscuits","Ketchup"};
+	char items[30]={"Apples","Chips","Pepsi","Chocolate","Boost","Nutella","Toothpaste","Surf Excel","Biscuits","Ketchup"};
 	char whilemain='y';
 	char cust_name[20];
 	int cost[10]={180,20,25,30,75,360,45,144,50,30},stock[10]={10,8,15,5,5,15,15,15,15,15};
