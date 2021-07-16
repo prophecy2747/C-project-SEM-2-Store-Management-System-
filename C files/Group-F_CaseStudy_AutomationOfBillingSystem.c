@@ -2,19 +2,22 @@
 #include<string.h>
 
 int membership(int);
-void customer(char c_name[], char items[],int cost[], int stock[] ) {
+
+
+void customer(char c_name[], char items[][30],int cost[], int stock[] ) {
+    printf("================================CUSTOMER=====================================\n");
     int bal,ch,i=0,bill = 0;
     char b;
-    printf("Welcome to our store");
-    printf("\nEnter the Amount in your e-wallet: ");
+    printf("<==================Welcome to our store=========================>");
+    printf("\nWelcome Mr/Mrs.%s \nEnter the Amount in your e-wallet: $",c_name);
     scanf("%d",&bal);
     do {
         printf("\n1. View the Items in our Store \n2. Shop Items in our Store \n3. View your Balance in your e-Wallet");
         printf("\nEnter what you want to do: ");
-        scanf(" %c",&ch);
+        scanf("%d",&ch);
         if (ch==1) {
-            while (i<2) {
-                printf("\n %d. %s = %d",i+1,items[i],cost[i]);
+            while (i<10) {
+                printf("\n %d. %s = %d",i+1,items[i][10],cost[i]);
                 i++;
             }
         }
@@ -25,15 +28,15 @@ void customer(char c_name[], char items[],int cost[], int stock[] ) {
             char j = 'y';
             while (j=='y' || j=='Y') {
                 i=0;
-                while (i<2){
-                    printf("\n %d. %s = %d",i+1,items[i],cost[i]);
+                while (i<10){
+                    printf("\n %d. %s = %d",i+1,items[i][10],cost[i]);
                     i++;
                 }
                 int chi,ni,l = 0;
                 printf("\nSelect any items: ");
-                scanf ("%d",&chi);
+                scanf (" %d",&chi);
                 printf("\nEnter the Number of items: ");
-                scanf ("%d",&ni);
+                scanf (" %d",&ni);
                 while (stock[chi-1]<ni){
                         printf("\n\nInsufficient Stocks!!!!");
                         printf("\nDecrease the Number of items: ");
@@ -52,7 +55,7 @@ void customer(char c_name[], char items[],int cost[], int stock[] ) {
                 if (s=='s' || s=='S') {
                     printf("\nYour cart has been successfully scanned!!");
                     printf("\n\nYour Bill amount: $%d",bill);
-                    //bill = membership(bill)
+                    bill = membership(bill);
                     printf("\nYour total Bill amount after Discounts: $%d",bill);
                     loops=1;
                 }
@@ -180,10 +183,10 @@ void employee(char name[], char items[][30], int cost[], int stock[])
 
 int main()
 {
-	char items[10]={'Apples','Chips','Pepsi','Chocolate','Boost','Nutella','Toothpaste','Surf Excel','Biscuits','Ketchup'};
+	char items[][30]={"Apples","Chips","Pepsi","Chocolate","Boost","Nutella","Toothpaste","Surf Excel","Biscuits","Ketchup"};
 	char whilemain='y';
 	char user_name[20];
-	int cost[10]={'50','20','25','10','60','100','20','70','15','10',},stock[10]={'50','50','50','50','50','50','50','50','50','50',};
+	int cost[10]={50,20,25,10,60,100,20,70,15,10},stock[10]={50,50,50,50,50,50,50,50,50,50};
 	
 	while(whilemain=='y'||whilemain=='Y')
 	    {
@@ -227,27 +230,27 @@ int membership(int bill_amount)
 {
     if(bill_amount>3000)
     {
-        printf("dear customer, you will come under PLATINUM membership");
+        printf("\nDear customer, you will come under PLATINUM membership");
         bill_amount-=bill_amount*(0.25);
     }
     else if(bill_amount>2000)
     {
-        printf("dear customer, you will come under GOLD membership");
+        printf("\nDear customer, you will come under GOLD membership");
         bill_amount-=bill_amount*(0.15);
     }
     else if(bill_amount>1000)
     {
-        printf("dear customer, you will come under SILVER membership");
+        printf("\nDear customer, you will come under SILVER membership");
         bill_amount-=bill_amount*(0.05);
     }
     else if(bill_amount>500)
     {
-        printf("dear customer, you will come under BRONZE membership");
+        printf("\nDear customer, you will come under BRONZE membership");
         bill_amount-=bill_amount*(0.025);
     }
     else
     {
-        printf("dear customer, You will not come under any membership scheme");
+        printf("\nDear customer, You will not come under any membership scheme");
     }
     return bill_amount;
 }
