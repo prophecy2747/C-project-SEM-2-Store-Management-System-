@@ -254,21 +254,60 @@ void employee(struct object o_details[10])
 
 
 
-
+//Main function
 int main()
 {
-	char items[][20]={"Apples","Chips","Pepsi","Chocolate","Boost","Nutella","Toothpaste","Surf Excel","Biscuits","Ketchup"};
-	char whilemain='y';
+	//Declaring some variables
 	char user_name[20];
-    int cost[10]={50,20,25,10,60,100,20,70,15,10},stock[10]={50,50,50,50,50,50,50,50,50,50};
-
-	int i;
+    char tempchar[256];
+    char *token;
+    struct object o_details[10];
+    
+    int i=0;
+    
 	
-	for(i=0;i<10;i++){
-		strcpy(o_details[i].o_item,items[i]);
-		o_details[i].o_cost=cost[i];
-		o_details[i].o_stock=stock[i];
+	//intializing structure array
+    //initalizing items 
+	FILE *fp1 ;
+	fp1= fopen("items.txt","r");
+	char line[100];
+	
+	while(fgets(line, sizeof(line),fp1)){
+		strcpy(tempchar,line);
+		strcpy(o_details[i].o_item,tempchar);
+		i++;
+    }
+    fclose(fp1);
+    
+    
+	//initializing cost
+    FILE *fp2 ;
+    fp2= fopen("cost.txt","r");
+    fscanf(fp2,"%s",tempchar);
+    token=strtok(tempchar,",");
+    i=0;
+    
+    while(token != NULL){
+    	o_details[i].o_cost=atoi(token);
+		token=strtok(NULL, ",");
+		i++;
 	}
+    fclose(fp2);
+    
+    
+    //initializing stock
+	FILE *fp3 ;
+    fp3= fopen("stock.txt","r");
+    fscanf(fp3,"%s",tempchar);
+    token=strtok(tempchar,",");
+    i=0;
+    
+    while(token != NULL){
+		o_details[i].o_stock=atoi(token);
+		token=strtok(NULL, ",");
+		i++;
+	}
+	fclose(fp3);
 	
 	
 	while(whilemain=='y'||whilemain=='Y')
