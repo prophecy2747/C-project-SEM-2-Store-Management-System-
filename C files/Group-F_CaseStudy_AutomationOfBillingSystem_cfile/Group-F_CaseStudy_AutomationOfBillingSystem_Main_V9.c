@@ -309,7 +309,7 @@ int main()
 	}
 	fclose(fp3);
 	
-	
+	char whilemain='y';
 	while(whilemain=='y'||whilemain=='Y')
 	    {
 	    	printf("Enter your name");
