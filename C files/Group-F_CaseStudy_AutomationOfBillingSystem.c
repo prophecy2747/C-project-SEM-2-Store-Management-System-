@@ -8,7 +8,8 @@ void customer(char c_name[], char items[][30],int cost[], int stock[] ) {
     printf("================================CUSTOMER=====================================\n");
     int bal,ch,i=0,bill = 0;
     char b;
-    printf("<==================Welcome to our store=========================>");#include<stdio.h>
+    printf("<==================Welcome to our store=========================>");
+	#include<stdio.h>
 #include<string.h>
 
 int membership(int);
@@ -65,7 +66,7 @@ void customer(char c_name[], char items[][30],int cost[], int stock[] ) {
                 if (s=='s' || s=='S') {
                     printf("\nYour cart has been successfully scanned!!");
                     printf("\n\nYour Bill amount: $%d",bill);
-                    bill = membership(bill);
+                    //bill = membership(bill);
                     printf("\nYour total Bill amount after Discounts: $%d",bill);
                     loops=1;
                 }
